@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 
 const App = () => {
-  const [query, setQuery] = useState(""); // Texto ingresado por el usuario
-  const [results, setResults] = useState([]); // Resultados de la API
-  const [isLoading, setIsLoading] = useState(false); // Indicador de carga
+  const [query, setQuery] = useState(""); 
+  const [results, setResults] = useState([]); 
+  const [isLoading, setIsLoading] = useState(false); 
 
-  // Función para consumir la API
+  // Function to consume the API
   const fetchUsers = async (searchQuery) => {
     if (!searchQuery) {
       setResults([]);
@@ -18,7 +18,7 @@ const App = () => {
         `https://jsonplaceholder.typicode.com/users`
       );
       const data = await response.json();
-      // Filtrar usuarios por nombre que contenga el texto ingresado
+      //Filter users by name containing the entered text
       const filteredData = data.filter((user) =>
         user.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
@@ -30,7 +30,7 @@ const App = () => {
     }
   };
 
-  // Función de debounce
+  // debounce function
   const debounce = (func, delay) => {
     let timeout;
     return (...args) => {
@@ -39,10 +39,10 @@ const App = () => {
     };
   };
 
-  // Uso de debounce para controlar las llamadas a fetchUsers
+  // Using debounce to control calls to fetchUsers
   const debouncedFetchUsers = useCallback(debounce(fetchUsers, 500), []);
 
-  // Manejar cambios en el input
+  // Handle changes in input
   const handleInputChange = (e) => {
     const value = e.target.value;
     setQuery(value);
